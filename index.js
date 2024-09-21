@@ -39,7 +39,7 @@ if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     linkErrLog);
 }
 
-initializeAttributes();
+initBuffer();
 
 gl.useProgram(program);
 gl.drawArrays(gl.POINTS, 0, 1);
@@ -56,7 +56,7 @@ console.log(
 cleanup();
 
 var buffer;
-function initializeAttributes() {
+function initBuffer() {
   gl.enableVertexAttribArray(0);
   buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -65,10 +65,8 @@ function initializeAttributes() {
 
 function cleanup() {
   gl.useProgram(null);
-  if (buffer)
-    gl.deleteBuffer(buffer);
-  if (program)
-    gl.deleteProgram(program);
+  if (buffer) gl.deleteBuffer(buffer);
+  if (program) gl.deleteProgram(program);
 }
 
 function getRenderingContext() {
@@ -80,8 +78,6 @@ function getRenderingContext() {
   document.body.appendChild(canvas);
   var gl = /** @type {WebGLRenderingContext} */(canvas.getContext("webgl"));
   if (!gl) gl = /** @type {WebGLRenderingContext} */(canvas.getContext("experimental-webgl"));
-  if (!gl)
-    throw new Error("Failed to get WebGL context. Your browser or device may not support WebGL.");
 
   gl.viewport(0, 0,
     gl.drawingBufferWidth, gl.drawingBufferHeight);
