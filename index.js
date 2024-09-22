@@ -85,3 +85,59 @@ function getRenderingContext() {
   gl.clear(gl.COLOR_BUFFER_BIT);
   return gl;
 }
+
+/**
+ * @typedef {{
+ *  x: number,
+ *  y: number,
+ *  vx: number,
+ *  vy: number,
+ *  mass: number,
+ *  hue: number,
+ *  charge: number
+ * }} Particle
+ */
+
+/**
+ * 
+ * @param {{
+ *  canvas?: HTMLCanvasElement | string
+ * }} [options] 
+ */
+function particleRenderer({ canvas } = {}) {
+  const canvasElem =
+    /** @type {HTMLCanvasElement} */(typeof canvas == 'string' ? document.querySelector(canvas) : canvas) ||
+    createBodyCanvas();
+
+  const gl = canvasElem.getContext('webgl');
+  if (!gl) throw new Error('WebGL not supported');
+
+  /**
+   * @param {Particle} particles
+   */
+  function bulk(particles) {
+  }
+
+  /**
+   * @param {Particle} particles
+   */
+  function append(particles) {
+  }
+
+  /**
+   * @param {Particle} particles
+   */
+  function remove(particles) {
+  }
+
+  function createBodyCanvas() {
+    /** @type {HTMLCanvasElement & {created?: boolean}} */
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    document.body.appendChild(canvas);
+    canvas.created = true;
+    return canvas;
+  }
+}
