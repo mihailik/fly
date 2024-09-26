@@ -4,6 +4,8 @@
  * @typedef {{
  *  x: number,
  *  y: number,
+ *  vx?: number,
+ *  vy?: number
  * }} LayoutNode
  */
 

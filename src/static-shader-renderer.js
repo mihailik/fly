@@ -28,12 +28,15 @@ import {
  * @param {{
  *  clock: { nowSeconds: number },
  *  nodes: TParticle[],
+ *  massScale?: number
  * }} _
  */
-export function staticShaderRenderer({ clock, nodes: nodeArray }) {
+export function staticShaderRenderer({ clock, nodes: nodeArray, massScale }) {
   let allocateCount = Math.max(
     Math.floor(nodeArray.length * 1.15),
     nodeArray.length + 100);
+  
+  const massScaleFactor = massScale || 1;
 
   let {
     geometry,
@@ -47,7 +50,7 @@ export function staticShaderRenderer({ clock, nodes: nodeArray }) {
     offsetBuf[i * 3 + 0] = node.x;
     offsetBuf[i * 3 + 1] = (node.h || 0);
     offsetBuf[i * 3 + 2] = node.y;
-    diameterBuf[i] = node.mass;
+    diameterBuf[i] = node.mass * massScaleFactor;
 
     colorBuf[i] = node.color * 256 | 0xFF;
   }
@@ -169,7 +172,7 @@ export function staticShaderRenderer({ clock, nodes: nodeArray }) {
       offsetBuf[i * 3 + 1] = (node.h || 0);
       offsetBuf[i * 3 + 2] = node.y;
 
-      diameterBuf[i] = node.mass;
+      diameterBuf[i] = node.mass * massScaleFactor;
 
       colorBuf[i] = node.color;
     }
