@@ -1,16 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fly</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fly</title>
+<style>
+html {
+  box-sizing: border-box;
+  font-family:
+  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+  "Note Sans Math", "Note Emoji", "Noto Sans Symbols", "Noto Sans Symbols 2", "Note Sans",
+  "Arial Unicode",
+  "Segoe UI Emoji";
+
+  background: black;
+  color: rgb(199, 199, 199);
+  height: 100%;
+  margin: 0; padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  height: 100vh;
+  margin: 0; padding: 0;
+}
+
+#loading {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  width: 100vw;
+  padding: 1em;
+  font-size: 5vw;
+  text-align: center;
+  font-weight: 100;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+</style>
 </head>
-<body>
+<body bgcolor=black>
 
-<h1>Fly 2d/3d</h1>
-<br><br>
+<div id=loading>
+Loading..
+</div>
 
-by O.Mihailik
+<script>
+function localise(english, languageMap) {
+  if (!langs?.length) return english;
+
+  for (const lang of langs) {
+    if (languageMap[lang]) return languageMap[lang];
+  }
+
+  for (const lang of langs) {
+    if (languageMap[lang]) return languageMap[lang];
+  }
+
+  return english;
+}
+
+const langSubstitutes = {
+  ru: 'uk', be: 'uk'
+}
+
+const langs = extendDashLeads(
+  !navigator ? undefined :
+    navigator.languages?.length ? navigator.languages.map(lang => lang.toLowerCase()) :
+      navigator.language ? [navigator.language.toLowerCase()] :
+        undefined);
+
+function extendDashLeads(langs) {
+  if (!langs) return langs;
+
+  const result = [];
+  for (const lang of langs) {
+    result.push(langSubstitutes[lang] || lang);
+  }
+
+  for (const lang of langs) {
+    const dashLead = lang.split('-')[0];
+    if (dashLead !== lang) result.push(langSubstitutes[dashLead] || dashLead);
+  }
+
+  return result;
+}
+(() => {
+  const loadingElement = document.getElementById('loading');
+  loading.textContent = localise('Loading...', {
+    uk: 'Завантаження...'
+  });
+  loading.style.opacity = 1;
+})()
+</script>
 
 <script src=index.js></script>
 

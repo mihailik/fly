@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "esbuild src/index.js --target=es6 --bundle --sourcemap --outfile=./index.js --loader:.js=jsx --format=iife --external:fs --external:path --external:child_process --external:ws --watch --serve --servedir=. --serve-fallback=index.html",
+    "build": "esbuild src/index.js --target=es6 --bundle --sourcemap --outfile=./index.js --loader:.js=jsx --format=iife --external:fs --external:path --external:child_process --external:ws"
   },
   "keywords": [],
   "author": "",
-  "license": "not yet licensed for anyone but me"
+  "license": "not yet licensed for anyone but me",
+  "dependencies": {
+    "coldsky": "^0.2.61",
+    "esbuild": "^0.24.0",
+    "three": "^0.167.1"
+  }
 }
